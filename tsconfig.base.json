@@ -14,7 +14,18 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@app/users/src/app": ["app/users/src/app/src/index.ts"],
+      "@apps/users/src/app/users/feature-users-home": [
+        "apps/users/src/app/users/feature-users-home/src/index.ts"
+      ],
+      "@ibs/users/feature-users-list": [
+        "libs/users/feature-users-list/src/index.ts"
+      ],
+      "@my-app-users/users-list": [
+        "apps/users/src/app/users/feature-users-list/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

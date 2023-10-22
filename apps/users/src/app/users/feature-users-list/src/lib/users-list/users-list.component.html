@@ -1,0 +1,37 @@
+
+<div class="wrapper">  
+    <div class="container">
+
+        <a 
+        class="button-delete"
+        routerLink="/">
+            Arrow
+       </a>
+
+        <div id="learning-materials" class="rounded shadow">
+            <h2>List Users</h2>
+
+            <div *ngIf="users$ | async as users" >
+                <a
+                class="list-item-link"
+                *ngFor="let user of users"
+              >
+                {{user.id}}.   {{user.name }} - {{ user.email }} 
+  
+                   <button 
+                    (click)='deleteUser(user.id)'
+                    class="button-delete">
+                      Delete
+                   </button>
+               </a>
+                
+                 <a *ngIf="isLoading">...Loading </a>
+               
+            </div>
+
+           
+           
+        </div>
+
+    </div>
+</div>
