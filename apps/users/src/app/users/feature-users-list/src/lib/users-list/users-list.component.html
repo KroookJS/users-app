@@ -1,37 +1,21 @@
+<ng-container *ngIf="vm.status === 'init'; else loadedSuccess ">
+    <h1 style="text-align: center;">Loading Users....</h1> 
+</ng-container>
 
-<div class="wrapper">  
-    <div class="container">
+<ng-template #loadedSuccess>    
 
-        <a 
+    <a 
         class="button-delete"
         routerLink="/">
-            Arrow
-       </a>
+            Back
+   </a>
 
-        <div id="learning-materials" class="rounded shadow">
-            <h2>List Users</h2>
-
-            <div *ngIf="users$ | async as users" >
-                <a
-                class="list-item-link"
-                *ngFor="let user of users"
-              >
-                {{user.id}}.   {{user.name }} - {{ user.email }} 
-  
-                   <button 
-                    (click)='deleteUser(user.id)'
-                    class="button-delete">
-                      Delete
-                   </button>
-               </a>
-                
-                 <a *ngIf="isLoading">...Loading </a>
-               
-            </div>
-
-           
-           
-        </div>
-
+    <div id="learning-materials" class="rounded shadow">
+         <h2>List Users</h2>
+         <div *ngFor="let user of vm.users">
+             <user-cart 
+             (deleteUser)="onDeleteUser(user.id)"
+             [user]="user" />
+         </div>
     </div>
-</div>
+ </ng-template>

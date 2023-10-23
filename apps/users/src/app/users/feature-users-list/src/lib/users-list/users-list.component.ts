@@ -1,37 +1,26 @@
-import { UsersFacade } from './../../../../data-access/+state/users.facade';
-import { deleteUser, loadUsers } from '../../../../data-access/+state/users.actions';
-import { UsersEntity } from '../../../../data-access/libs/user.entity';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UsersListVm } from './users-lists-view-model';
+import { UserCartComponent } from "../user-cart/user-cart.component";
+import { UsersVm } from '../../../../users-vm';
 import { RouterModule } from '@angular/router';
 
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-
 @Component({
-  selector: 'my-app-users-users-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'users-list',
+    standalone: true,
+    templateUrl: './users-list.component.html',
+    styleUrls: ['../users-container/users-container.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, UserCartComponent, RouterModule]
 })
-export class UsersListComponent implements OnInit {
-  private readonly usersFacade = inject(UsersFacade);
-  users$: Observable<UsersEntity[]> | undefined;
-  constructor(private store: Store) {}
-  isLoading = true
-  
-  
+export class UsersListComponent {
+  @Input({required: true})
+  vm!: UsersListVm
 
-  deleteUser(id: number) {
-    this.store.dispatch(deleteUser({id}))
-  }
+  @Output() deleteUser = new EventEmitter()
 
-  ngOnInit(): void {    
-    this.isLoading = true
-    this.store.dispatch(loadUsers());
-    this.users$ = this.usersFacade.allUsersTest$.pipe(user => user)
-    this.isLoading = false
+  onDeleteUser(id: number) {
+    this.deleteUser.emit(id)
   }
 }

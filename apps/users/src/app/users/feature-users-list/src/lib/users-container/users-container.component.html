@@ -1,0 +1,13 @@
+<div class="wrapper">  
+    <div class="container">
+        <ng-container *ngIf="users$ | async as users" >
+            <ng-container *ngIf="status$ | async as status">
+                <users-list
+                 [vm]="{users, status}" 
+                 (deleteUser)="onDeleteUser($event)"
+                 />
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
+
